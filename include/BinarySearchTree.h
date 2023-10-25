@@ -3,12 +3,11 @@
 
 
 #include <iostream>
+#include "AbstractBinaryTree.h"
 #include "Node.h"
 
 template<class T = int>
-class BinarySearchTree {
-private:
-    Node<T> *head;
+class BinarySearchTree : public AbstractBinaryTree<T> {
 public:
     BinarySearchTree();
 
@@ -17,8 +16,6 @@ public:
     void insert(const T &elem);
 
     void remove(const T &elem);
-
-    void printInorderTraversal();
 
     void printTree(Node<T> *root, int space);
 
@@ -58,7 +55,7 @@ void BinarySearchTree<T>::remove(const T &elem) {
     Node<T> *current = search(elem);
     if (current == nullptr) {
         return;
-    };
+    }
     Node<T> *next;
     if (current->left && current->right) {
         next = current->right;
@@ -91,22 +88,17 @@ void BinarySearchTree<T>::remove(const T &elem) {
 }
 
 template<class T>
-void BinarySearchTree<T>::printInorderTraversal() {
-
-}
-
-template<class T>
 void BinarySearchTree<T>::printTree(Node<T> *root, int space) {
     if (root == nullptr)
         return;
     space += 6;
-    printTree(root->right, space);
+    printTree(root->left, space);
     std::cout << std::endl;
     for (int i = 6; i < space; i++) {
         std::cout << " ";
     }
     std::cout << root->data << "\n";
-    printTree(root->left, space);
+    printTree(root->right, space);
 }
 
 template<class T>
@@ -115,5 +107,5 @@ void BinarySearchTree<T>::printTree() {
 }
 
 template<class T>
-BinarySearchTree<T>::BinarySearchTree() : head(nullptr) {}
+BinarySearchTree<T>::BinarySearchTree() = default;
 
