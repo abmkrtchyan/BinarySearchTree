@@ -2,6 +2,7 @@
 #include "BinarySearchTree.h"
 
 int main() {
+    auto set = new std::set<int>();
     auto tree = new BinarySearchTree<char>();
     std::cout << "______________________________________" << std::endl;
     tree->insert('D');
@@ -23,7 +24,9 @@ int main() {
         std::cout << *it << " ";
     }
     std::cout << "\n______________________________________" << std::endl;
-    std::cout << *std::find(tree->begin(), tree->end(), 'B');
+    auto iterator1 = std::find(tree->begin(), tree->end(), 'B');
+    iterator1 = std::find(tree->begin(), tree->end(), 'D');
+    std::cout << *iterator1;
     std::cout << std::endl;
     std::cout << *std::max_element(tree->begin(), tree->end());
     return 0;

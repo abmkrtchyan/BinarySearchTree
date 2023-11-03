@@ -7,7 +7,7 @@
 #include "AbstractBinaryTree.h"
 #include "Node.h"
 
-template<class T = int>
+template<class T = int, class Compare = std::less<T>>
 class BinarySearchTree : public AbstractBinaryTree<T> {
 public:
     BinarySearchTree();
@@ -15,7 +15,7 @@ public:
     class iterator {
     public:
         using value_type = T;
-        using pointer = value_type *;
+        using pointer = const value_type *;
         using reference = const value_type &;
         using difference_type = ptrdiff_t;
         using iterator_category = std::forward_iterator_tag;
@@ -114,27 +114,27 @@ public:
 
 #endif //BINARY_SEARCH_TREE_BINARY_SEARCH_TREE_H
 
-template<class T>
-void BinarySearchTree<T>::inOrder() {
+template<class T, class Compare>
+void BinarySearchTree<T, Compare>::inOrder() {
     for (auto it: *this) {
         std::cout << it << " ";
     }
     std::cout << std::endl;
 }
 
-template<class T>
-BinarySearchTree<T>::BinarySearchTree() = default;
+template<class T, class Compare>
+BinarySearchTree<T, Compare>::BinarySearchTree() = default;
 
-template<class T>
-void BinarySearchTree<T>::remove(const T &elem) {
+template<class T, class Compare>
+void BinarySearchTree<T, Compare>::remove(const T &elem) {
     Node<T> *removedNode = this->search(elem);
     if (removedNode != nullptr)
         this->remove(removedNode);
 }
 
 
-template<class T>
-Node<T> *BinarySearchTree<T>::search(const T &elem) {
+template<class T, class Compare>
+Node<T> *BinarySearchTree<T, Compare>::search(const T &elem) {
     Node<T> *current = this->head;
     while (current != nullptr) {
         if (**current == elem) {
@@ -145,8 +145,8 @@ Node<T> *BinarySearchTree<T>::search(const T &elem) {
     return nullptr;
 }
 
-template<class T>
-void BinarySearchTree<T>::insert(const T &elem) {
+template<class T, class Compare>
+void BinarySearchTree<T, Compare>::insert(const T &elem) {
     auto newNode = new Node<T>(elem);
 
     Node<T> *current = this->head;
@@ -164,8 +164,8 @@ void BinarySearchTree<T>::insert(const T &elem) {
     }
 }
 
-template<class T>
-void BinarySearchTree<T>::transplant(Node<T> *u, Node<T> *v) {
+template<class T, class Compare>
+void BinarySearchTree<T, Compare>::transplant(Node<T> *u, Node<T> *v) {
     if (!u->parent)
         this->head = v;
     else if (u->parent->left == u)
@@ -176,16 +176,16 @@ void BinarySearchTree<T>::transplant(Node<T> *u, Node<T> *v) {
         v->parent = u->parent;
 }
 
-template<class T>
-Node<T> *BinarySearchTree<T>::min(Node<T> *x) {
+template<class T, class Compare>
+Node<T> *BinarySearchTree<T, Compare>::min(Node<T> *x) {
     while (x->left)
         x = x->left;
 
     return x;
 }
 
-template<class T>
-Node<T> *BinarySearchTree<T>::successor(Node<T> *x) {
+template<class T, class Compare>
+Node<T> *BinarySearchTree<T, Compare>::successor(Node<T> *x) {
     if (x->right)
         return min(x->right);
     else {
@@ -198,8 +198,8 @@ Node<T> *BinarySearchTree<T>::successor(Node<T> *x) {
     }
 }
 
-template<class T>
-void BinarySearchTree<T>::remove(Node<T> *v) {
+template<class T, class Compare>
+void BinarySearchTree<T, Compare>::remove(Node<T> *v) {
     if (!v->left)
         transplant(v, v->right);
     else if (!v->right)
@@ -217,8 +217,8 @@ void BinarySearchTree<T>::remove(Node<T> *v) {
     }
 }
 
-template<class T>
-void BinarySearchTree<T>::printTree(Node<T> *root, int space) {
+template<class T, class Compare>
+void BinarySearchTree<T, Compare>::printTree(Node<T> *root, int space) {
     if (root == nullptr)
         return;
     space += 6;
@@ -231,7 +231,7 @@ void BinarySearchTree<T>::printTree(Node<T> *root, int space) {
     printTree(root->right, space);
 }
 
-template<class T>
-void BinarySearchTree<T>::printTree() {
+template<class T, class Compare>
+void BinarySearchTree<T, Compare>::printTree() {
     printTree(this->head, 0);
 }
