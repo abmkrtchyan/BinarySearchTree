@@ -3,14 +3,19 @@
 
 template<class T = int>
 class Node {
-public:
+private:
     T data;
+public:
     Node *left;
     Node *right;
     Node *parent;
 
     T &operator*() {
         return data;
+    }
+
+    bool operator<(const Node<T> &other) {
+        return this->data < other.data;
     }
 
     explicit Node(int data, Node *parent = nullptr, Node *left = nullptr, Node *right = nullptr) :

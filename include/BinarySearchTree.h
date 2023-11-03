@@ -137,27 +137,30 @@ template<class T>
 Node<T> *BinarySearchTree<T>::search(const T &elem) {
     Node<T> *current = this->head;
     while (current != nullptr) {
-        if (current->data == elem) {
+        if (**current == elem) {
             return current;
         }
-        current = (elem < current->data) ? current->left : current->right;
+        current = (elem < **current) ? current->left : current->right;
     }
     return nullptr;
 }
 
 template<class T>
 void BinarySearchTree<T>::insert(const T &elem) {
+    auto newNode = new Node<T>(elem);
+
     Node<T> *current = this->head;
     Node<T> *parent = nullptr;
     while (current != nullptr) {
         parent = current;
-        current = (elem < current->data) ? current->left : current->right;
+        current = (*newNode < *current) ? current->left : current->right;
     }
-    current = new Node<T>(elem, parent);
+
+    newNode->parent = parent;
     if (parent == nullptr) {
-        this->head = current;
+        this->head = newNode;
     } else {
-        (elem < parent->data) ? parent->left = current : parent->right = current;
+        (*newNode < *parent) ? parent->left = newNode : parent->right = newNode;
     }
 }
 
@@ -224,7 +227,7 @@ void BinarySearchTree<T>::printTree(Node<T> *root, int space) {
     for (int i = 6; i < space; i++) {
         std::cout << " ";
     }
-    std::cout << root->data << "\n";
+    std::cout << **root << "\n";
     printTree(root->right, space);
 }
 
