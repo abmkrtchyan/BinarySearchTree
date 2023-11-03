@@ -15,6 +15,8 @@ public:
     virtual void remove(const T &elem) = 0;
 
     virtual void printTree() = 0;
+
+    virtual void inOrder() = 0;
 };
 
 #endif //BINARY_SEARCH_TREE_ABSTRACT_BINARY_TREE_H

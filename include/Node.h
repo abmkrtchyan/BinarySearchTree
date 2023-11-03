@@ -9,6 +9,10 @@ public:
     Node *right;
     Node *parent;
 
+    T &operator*() {
+        return data;
+    }
+
     explicit Node(int data, Node *parent = nullptr, Node *left = nullptr, Node *right = nullptr) :
             data(data),
             left(left),
