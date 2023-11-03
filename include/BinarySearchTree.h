@@ -15,10 +15,12 @@ public:
     class iterator {
     public:
         using value_type = T;
-        using node_type = Node<value_type>;
         using pointer = value_type *;
         using reference = const value_type &;
+        using difference_type = ptrdiff_t;
         using iterator_category = std::forward_iterator_tag;
+
+        using node_type = Node<value_type>;
 
         explicit iterator(node_type *head = nullptr) : mPtr(head) {
             if (mPtr != nullptr) {

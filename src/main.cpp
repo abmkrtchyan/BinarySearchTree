@@ -2,16 +2,6 @@
 #include "BinarySearchTree.h"
 
 int main() {
-    auto set = new std::set<char>();
-    set->insert('D');
-    set->insert('E');
-    set->insert('B');
-    set->insert('A');
-    set->insert('G');
-    set->insert('C');
-    set->insert('F');
-    auto item = std::find(set->begin(), set->end(), 'B');
-//    *item = 9;
     auto tree = new BinarySearchTree<char>();
     tree->insert('D');
     tree->insert('E');
@@ -28,9 +18,10 @@ int main() {
     tree->inOrder();
     std::cout << "______________________________________" << std::endl;
     for (auto it = tree->begin(); it != tree->end(); it++) {
-        *it = 9;
+        std::cout << *it << " ";
     }
+    std::cout << "______________________________________" << std::endl;
     tree->inOrder();
-    auto node = std::find(tree->begin(), tree->end(), 'B');
+    std::cout << *std::find(tree->begin(), tree->end(), 'B');
     return 0;
 }
