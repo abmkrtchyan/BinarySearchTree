@@ -15,11 +15,12 @@ public:
     class iterator {
     public:
         using value_type = T;
-        using pointer_type = Node<T> *;
-        using reference_type = T &;
+        using node_type = Node<value_type>;
+        using pointer = value_type *;
+        using reference = const value_type &;
         using iterator_category = std::forward_iterator_tag;
 
-        explicit iterator(pointer_type head = nullptr) : mPtr(head) {
+        explicit iterator(node_type *head = nullptr) : mPtr(head) {
             if (mPtr != nullptr) {
                 while (mPtr->left) {
                     moveToLeft();
@@ -27,12 +28,12 @@ public:
             }
         }
 
-        reference_type operator*() {
-            return (*mPtr).data;
+        reference operator*() const {
+            return **mPtr;
         }
 
-        pointer_type operator->() {
-            return mPtr;
+        pointer operator->() {
+            return &(**mPtr);
         }
 
         iterator &operator++() {
@@ -50,71 +51,10 @@ public:
             return *this;
         }
 
-        iterator::pointer_type operator++(int) {
-            iterator::pointer_type tmp = mPtr;
+        iterator operator++(int) {
+            iterator tmp = *this;
             ++(*this);
             return tmp;
-        }
-
-        void moveToLeft() {
-            stack.push(mPtr);
-            mPtr = mPtr->left;
-        }
-
-        void moveToRight() {
-            mPtr = mPtr->right;
-        }
-
-        bool operator==(const iterator &b) {
-            return this->mPtr == b.mPtr;
-        };
-
-        bool operator!=(const iterator &b) {
-            return this->mPtr != b.mPtr;
-        };
-
-
-    private:
-        std::stack<pointer_type> stack;
-        pointer_type mPtr;
-    };
-
-    class const_iterator {
-    public:
-        using value_type = T;
-        using pointer_type = Node<T> *;
-        using reference_type = T &;
-        using iterator_category = std::forward_iterator_tag;
-
-        explicit const_iterator(pointer_type head = nullptr) : mPtr(head) {
-            if (mPtr != nullptr) {
-                while (mPtr->left) {
-                    moveToLeft();
-                }
-            }
-        }
-
-        reference_type operator*() const {
-            return **mPtr;
-        }
-
-        pointer_type operator->() const {
-            return mPtr;
-        }
-
-        const_iterator &operator++() {
-            if (mPtr->right != nullptr) {
-                moveToRight();
-                while (mPtr->left != nullptr) {
-                    moveToLeft();
-                }
-            } else if (!stack.empty()) {
-                mPtr = stack.top();
-                stack.pop();
-            } else {
-                mPtr = nullptr;
-            }
-            return *this;
         }
 
         void moveToLeft() {
@@ -136,9 +76,10 @@ public:
 
 
     private:
-        std::stack<pointer_type> stack;
-        pointer_type mPtr;
+        std::stack<node_type *> stack;
+        node_type *mPtr;
     };
+
 
     iterator begin() {
         return iterator(this->head);
@@ -146,14 +87,6 @@ public:
 
     iterator end() {
         return iterator(nullptr);
-    }
-
-    const_iterator cbegin() const {
-        return const_iterator(this->head);
-    }
-
-    const_iterator cend() const {
-        return const_iterator(nullptr);
     }
 
     Node<T> *search(const T &elem);
@@ -177,6 +110,8 @@ public:
     void inOrder();
 };
 
+#endif //BINARY_SEARCH_TREE_BINARY_SEARCH_TREE_H
+
 template<class T>
 void BinarySearchTree<T>::inOrder() {
     for (auto it: *this) {
@@ -195,7 +130,6 @@ void BinarySearchTree<T>::remove(const T &elem) {
         this->remove(removedNode);
 }
 
-#endif //BINARY_SEARCH_TREE_BINARY_SEARCH_TREE_H
 
 template<class T>
 Node<T> *BinarySearchTree<T>::search(const T &elem) {
