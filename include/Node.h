@@ -1,28 +1,41 @@
 #ifndef BINARY_SEARCH_TREE_NODE_H
 #define BINARY_SEARCH_TREE_NODE_H
 
-template<class T = int>
-class Node {
+template <class T = int>
+class Node
+{
 private:
     T data;
-public:
-    Node *left;
-    Node *right;
-    Node *parent;
 
-    T &operator*() {
+public:
+    Node* left;
+    Node* right;
+    Node* parent;
+
+    const T& operator*()
+    {
         return data;
     }
 
-    bool operator<(const Node<T> &other) {
+    bool operator<(const Node<T>& other)
+    {
         return this->data < other.data;
     }
 
-    explicit Node(int data, Node *parent = nullptr, Node *left = nullptr, Node *right = nullptr) :
-            data(data),
-            left(left),
-            right(right),
-            parent(parent) {}
+    explicit Node(int data, Node* parent = nullptr, Node* left = nullptr, Node* right = nullptr) :
+        data(data),
+        left(left),
+        right(right),
+        parent(parent)
+    {
+    }
+
+    ~Node()
+    {
+        delete left;
+        delete right;
+        delete parent;
+    }
 };
 
 #endif //BINARY_SEARCH_TREE_NODE_H

@@ -3,20 +3,17 @@
 
 #include "Node.h"
 
-template<class T = int>
-class AbstractBinaryTree {
-protected:
-    Node<T> *head;
+template <class T = int>
+class AbstractBinaryTree
+{
 public:
-    virtual Node<T> *search(const T &elem) = 0;
+    virtual ~AbstractBinaryTree() = default;
 
-    virtual void insert(const T &elem) = 0;
+    virtual Node<T>* search(const T& elem) = 0;
 
-    virtual void remove(const T &elem) = 0;
+    virtual void insert(const T& elem) = 0;
 
-    virtual void printTree() = 0;
-
-    virtual void inOrder() = 0;
+    virtual void remove(const T& elem) = 0;
 };
 
 #endif //BINARY_SEARCH_TREE_ABSTRACT_BINARY_TREE_H

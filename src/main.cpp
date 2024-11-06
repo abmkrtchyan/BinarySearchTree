@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <set>
 #include "BinarySearchTree.h"
 
@@ -20,7 +21,7 @@ int main() {
     tree->remove('A');
     tree->inOrder();
     std::cout << "______________________________________" << std::endl;
-    for (auto it = tree->begin(); it != tree->end(); it++) {
+    for (auto it = tree->begin(); it != tree->end(); ++it) {
         std::cout << *it << " ";
     }
     std::cout << "\n______________________________________" << std::endl;
