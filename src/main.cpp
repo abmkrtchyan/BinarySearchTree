@@ -3,7 +3,6 @@
 #include "BinarySearchTree.h"
 
 int main() {
-    auto set = new std::set<int>();
     auto tree = new BinarySearchTree<char>();
     std::cout << "______________________________________" << std::endl;
     tree->insert('D');
@@ -13,13 +12,13 @@ int main() {
     tree->insert('G');
     tree->insert('C');
     tree->insert('F');
-    tree->inOrder();
+    tree->printTree();
     std::cout << "______________________________________" << std::endl;
     tree->remove('F');
-    tree->inOrder();
+    tree->printTree();
     std::cout << "______________________________________" << std::endl;
     tree->remove('A');
-    tree->inOrder();
+    tree->printTree();
     std::cout << "______________________________________" << std::endl;
     for (auto it = tree->begin(); it != tree->end(); ++it) {
         std::cout << *it << " ";
