@@ -20,7 +20,7 @@ public:
         return this->data < other.data;
     }
 
-    Node(const T& data, Node* parent = nullptr, Node* left = nullptr, Node* right = nullptr) :
+    explicit Node(const T& data, Node* parent = nullptr, Node* left = nullptr, Node* right = nullptr) :
         data(data),
         left(left),
         right(right),
@@ -28,12 +28,7 @@ public:
     {
     }
 
-    ~Node()
-    {
-        delete left;
-        delete right;
-        delete parent;
-    }
+    ~Node() = default;
 };
 
 #endif //BINARY_SEARCH_TREE_NODE_H
