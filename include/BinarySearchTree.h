@@ -125,6 +125,9 @@ public:
 
     void remove(const T& elem) override;
 
+    void printTree();
+
+private:
     void remove(Node<T>* v);
 
     void transplant(Node<T>* u, Node<T>* v);
@@ -134,23 +137,10 @@ public:
     Node<T>* successor(Node<T>* x);
 
     void printTree(Node<T>* root, int space);
-
-    void printTree();
-
-    void inOrder();
 };
 
 #endif //BINARY_SEARCH_TREE_BINARY_SEARCH_TREE_H
 
-template <class T>
-void BinarySearchTree<T>::inOrder()
-{
-    for (auto it : *this)
-    {
-        std::cout << it << " ";
-    }
-    std::cout << std::endl;
-}
 
 template <class T>
 BinarySearchTree<T>::BinarySearchTree() = default;
