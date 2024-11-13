@@ -4,10 +4,8 @@
 template <class T = int>
 class Node
 {
-private:
-    T data;
-
 public:
+    T data;
     Node* left;
     Node* right;
     Node* parent;
@@ -17,12 +15,12 @@ public:
         return data;
     }
 
-    bool operator<(const Node<T>& other)
+    bool operator<(const Node& other)
     {
         return this->data < other.data;
     }
 
-    explicit Node(int data, Node* parent = nullptr, Node* left = nullptr, Node* right = nullptr) :
+    Node(const T& data, Node* parent = nullptr, Node* left = nullptr, Node* right = nullptr) :
         data(data),
         left(left),
         right(right),
